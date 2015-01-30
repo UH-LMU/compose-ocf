@@ -1,4 +1,7 @@
+TMP="tmp.sql"
+echo $MYSQL_PASSWORD >> $TMP
+cat /dump/*.sql >> $TMP
 
-cat /dump/*.sql |mysql -u h132_lmu -p $MYSQL_DATABASE <<-EOF
-$MYSQL_PASSWORD 
-EOF
+mysql -u $MYSQL_USER -p $MYSQL_DATABASE < $TMP
+
+rm $TMP

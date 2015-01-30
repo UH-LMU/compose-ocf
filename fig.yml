@@ -24,4 +24,6 @@ dev:
    - "ambassador:mysql"
   volumes:
    - "/home/hajaalin/GitHub/fig-ocf/python:/python"
+  volumes_from:
+   - "hajaalin-data"
   command: sleep 24h
