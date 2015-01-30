@@ -1,0 +1,27 @@
+ambassador:
+  image: cpuguy83/docker-grand-ambassador
+  volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock"
+  command: "-name figocf_mysql_1 -name figocf_dev_1"
+
+mysql: 
+  build: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD:
+    MYSQL_DATABASE: "h132_lmu"
+    MYSQL_USER: "h132_lmu"
+    MYSQL_PASSWORD:
+  volumes:
+   - "/home/hajaalin/GitHub/fig-ocf/dump:/dump"
+
+dev:
+  image: hajaalin/devbox
+  environment:
+    MYSQL_DATABASE: "h132_lmu"
+    MYSQL_USER: "h132_lmu"
+    MYSQL_PASSWORD:
+  links:
+   - "ambassador:mysql"
+  volumes:
+   - "/home/hajaalin/GitHub/fig-ocf/python:/python"
+  command: sleep 24h
