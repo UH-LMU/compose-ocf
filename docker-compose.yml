@@ -1,11 +1,13 @@
 ambassador:
   image: cpuguy83/docker-grand-ambassador
+  container_name: ocf_export_ambassador
   volumes:
     - "/var/run/docker.sock:/var/run/docker.sock"
-  command: "-name figocf_mysql_1 -name figocf_dev_1"
+  command: "-name ocf_export_mysql -name ocf_export_dev"
 
-mysql: 
+mysql:
   build: mysql
+  container_name: ocf_export_mysql
   environment:
     MYSQL_ROOT_PASSWORD:
     MYSQL_DATABASE: "h132_lmu"
@@ -16,6 +18,7 @@ mysql:
 
 dev:
   image: hajaalin/devbox
+  container_name: ocf_export_dev
   environment:
     MYSQL_DATABASE: "h132_lmu"
     MYSQL_USER: "h132_lmu"
@@ -23,7 +26,8 @@ dev:
   links:
    - "ambassador:mysql"
   volumes:
-   - "/home/hajaalin/GitHub/fig-ocf/python:/python"
+   - "/home/hajaalin/GitHub/fig-ocf/scripts:/scripts"
+   - "/home/hajaalin/tmp/ocf_export:/output"
   volumes_from:
    - "hajaalin-data"
   command: sleep 24h
