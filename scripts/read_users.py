@@ -24,12 +24,12 @@ def print_csv(filename, query_result):
                 r[i] = "None"
             # make numbers print
             r[i] = str(r[i])
-            # remove newlines
-            r[i] = r[i].replace('\n', ' ').replace('\r', ' ')
+            # remove newlines and commas
+            r[i] = r[i].replace('\n', ' ').replace('\r', ' ').replace(',',';')
 
             # the MySQL database used latin1_swedish_ci encoding
             r[i] = r[i].decode('latin1')
-        output = '"' + string.join(r,'";"') + '"\n'
+        output = '"' + string.join(r,'","') + '"\n'
         output = unicode(output).encode('utf-8')
         csvfile.write(output)
     csvfile.close()
@@ -114,6 +114,7 @@ webcal_entry.cal_description,\
 accounts.account_name,\
 resource_services.service_description, \
 webcal_resource.resource_name, \
+webcal_entry.cal_options, \
 ]
 
 query = session.query(*columns) \

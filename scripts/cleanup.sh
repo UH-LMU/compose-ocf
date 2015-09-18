@@ -11,7 +11,8 @@ sed -i "/Jan Mattila/d" /output/*.csv
 sed -i "/Leica TCS SP2 AOBS/d" /output/*.csv
 
 # unify HCA workstation
-sed -i "s/HCA workstation/HCA Workstation/" /output/*.csv
+sed -i "s/HCA workstation/HCA Workstation/" /output/access.csv
+sed -i "/HCA workstation/d" /output/resources.csv
 
 # rename 2d workstation
 sed -i "s/2D_Workstation/2D Workstation/" /output/*.csv
