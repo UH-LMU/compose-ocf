@@ -54,6 +54,7 @@ webcal_entry = Base.classes.webcal_entry
 webcal_user = Base.classes.webcal_user
 webcal_resource = Base.classes.webcal_resource
 dept_lookup = Base.classes.dept_lookup
+pi_lookup = Base.classes.pi_lookup
 
 resource_services = Base.classes.resource_services
 
@@ -124,3 +125,10 @@ query = session.query(*columns) \
 .filter(webcal_entry.cal_date>20141231)
 result = query.all()
 print_csv("/output/reservations.csv", result)
+
+
+# list PI emails and last names
+columns = [pi_lookup.email,pi_lookup.lname]
+query = session.query(*columns)
+result = query.all()
+print_csv("/output/pi_email_lastname.csv", result)

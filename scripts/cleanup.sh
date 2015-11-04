@@ -1,6 +1,9 @@
 # remove BioRad
 sed -i "/BioRad/d" /output/*.csv
 
+# remove Cell-IQ workstation
+sed -i "/Cell-IQ Workstation/d" /output/*.csv
+
 # remove Till
 sed -i "/Till/d" /output/*.csv
 
