@@ -12,9 +12,9 @@ mysql:
     MYSQL_ROOT_PASSWORD:
     MYSQL_DATABASE: "h132_lmu"
     MYSQL_USER: "h132_lmu"
-    MYSQL_PASSWORD:
+    MYSQL_PASSWORD: "h132_lmu"
   volumes:
-   - "/home/hajaalin/GitHub/fig-ocf/dump:/dump"
+   - "/home/hajaalin/GitHub/compose-ocf/dump:/dump"
 
 dev:
   image: hajaalin/devbox
@@ -22,11 +22,11 @@ dev:
   environment:
     MYSQL_DATABASE: "h132_lmu"
     MYSQL_USER: "h132_lmu"
-    MYSQL_PASSWORD:
+    MYSQL_PASSWORD: "h132_lmu"
   links:
    - "ambassador:mysql"
   volumes:
-   - "/home/hajaalin/GitHub/fig-ocf/scripts:/scripts"
+   - "/home/hajaalin/GitHub/compose-ocf/scripts:/scripts"
    - "/home/hajaalin/tmp/ocf_export:/output"
   volumes_from:
    - "hajaalin-data"

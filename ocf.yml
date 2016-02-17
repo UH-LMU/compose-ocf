@@ -1,0 +1,22 @@
+- hosts: all
+  sudo: yes
+
+  vars_files:
+  - vars/vault.yml
+  - vars/main.yml
+
+  vars:
+  - dump_filename: "ocf-{{ansible_date_time.epoch}}.sql"
+  - dump_dir: "/home/hajaalin/GitHub/compose-ocf/dump"
+
+  tasks:
+  - name: dump OCF database
+    shell: mysqldump -h hotel-db1.it.helsinki.fi -u h132_lmu -p"{{ mysql_password }}" h132_lmu > "/tmp/{{ dump_filename }}"
+  - name: print scp command
+    debug: msg="scp lmu.biocenter.helsinki.fi:/tmp/{{ dump_filename }} ."
+  - name: template download script
+    local_action: template src=templates/download.sh dest=scripts/download.sh owner=hajaalin mode=0700
+  - name: create dump directory
+    local_action: file path="{{ dump_dir }}" state=directory owner=hajaalin mode=0755
+  - name: template import script
+    local_action: template src=templates/import.sh dest=dump/import.sh owner=hajaalin mode=0700

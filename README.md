@@ -1,14 +1,11 @@
-# fig-ocf
+# compose-ocf
 Export data from OCF Scheduler.
 
 Login to OCF Scheduler server and make a database dump:
 ```
-ssh lmu
-sudo -i
+ansible-playbook --become --ask-become-pass -i inventory ocf.yml --vault-password-file=~/.ansible_vault_passes/compose-ocf
+./scripts/download.sh
 
-mysqldump -h hotel-db1.it.helsinki.fi -u h132_lmu -p h132_lmu > /tmp/ocf_dump_20150916.sql
-
-scp /tmp/ocf_dump_20150916.sql ...
 ```
 
 Start containers:
@@ -19,16 +16,16 @@ docker-compose up
 
 Initialize database from dump:
 ```
-docker exec -it ocf_export_mysql bash
+docker exec -it ocf_export_mysql /dump/dump.sh
 
 ls /dump
 env
-mysql -u  -p  < /dump/ocf_dump_20150916.sql
+mysql -u ${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} < /dump/ocf_dump_20150916.sql
 ```
 
 
 ```
-docker exec -it ocf_export_dev bash
+docker exec -it ocf_export_dev /scripts/extract.sh
 
 python /scripts/read_users.py
 sh /scripts/cleanup.sh
