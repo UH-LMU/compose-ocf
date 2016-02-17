@@ -14,19 +14,12 @@ Start containers:
 docker-compose up
 ```
 
-Initialize database from dump:
-```
-docker exec -it ocf_export_mysql /dump/dump.sh
-
-ls /dump
-env
-mysql -u ${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} < /dump/ocf_dump_20150916.sql
-```
-
 
 ```
+# initialize database from dump
+docker exec -it ocf_export_mysql /dump/import.sh
+
+# extract data
 docker exec -it ocf_export_dev /scripts/extract.sh
 
-python /scripts/read_users.py
-sh /scripts/cleanup.sh
 ```
