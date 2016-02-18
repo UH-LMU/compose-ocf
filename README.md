@@ -23,3 +23,5 @@ docker exec -it ocf_export_mysql /dump/import.sh
 docker exec -it ocf_export_dev /scripts/extract.sh
 
 ```
+
+See docker-compose.yml to find the output files.
