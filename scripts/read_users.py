@@ -121,8 +121,7 @@ webcal_entry.cal_options, \
 query = session.query(*columns) \
 .join(accounts, accounts.account_id==webcal_entry.account_id) \
 .join(resource_services, resource_services.service_id==webcal_entry.service_id) \
-.join(webcal_resource, webcal_resource.resource_id==resource_services.resource_id) \
-.filter(webcal_entry.cal_date>20141231)
+.join(webcal_resource, webcal_resource.resource_id==resource_services.resource_id)
 result = query.all()
 print_csv("/output/reservations.csv", result)
 
