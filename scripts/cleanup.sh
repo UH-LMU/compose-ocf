@@ -25,3 +25,8 @@ sed -i "s/3D_Workstation/3D Workstation/" /output/*.csv
 
 # rename MP
 sed -i "s/MP Leica TCS SP5 SMD FLIM/Leica TCS SP5 MP SMD FLIM/" /output/*.csv
+
+# remove staff from accounts
+cat /output/accounts_and_users.csv | grep -iv crivaro | grep -iv hajaalin | grep -iv mmolin | grep -iv tanhuanp > /output/accounts_and_users_minus_staff.csv
+
+
